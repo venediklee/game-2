@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - gun
+  - pistol
+  - localPlayer
+  - RemotePlayer
+  - healthKit
+  - armorKit
+  - scrollKit
+  - itemSpawnPoint
+  - gun_AR
+  - gun_Pistol
+  - gun_Shotgun
+  - gun_SMG
+  - gun_SR
+  - audioManager
+  - gun_Hand
+  - mapCanvas
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - enemy
+  - player
+  - wall
+  - pickUp
+  - bullets
+  - door
+  - ground
+  - window
+  - itemSpawnPoint
+  - playerTriangle
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: ground
+    uniqueID: 1714947641
+    locked: 1
+  - name: pickUp
+    uniqueID: 4244486865
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: player
+    uniqueID: 867110373
+    locked: 0
+  - name: bush&roof
+    uniqueID: 697404185
+    locked: 0
+  - name: walls
+    uniqueID: 1357745375
+    locked: 0
