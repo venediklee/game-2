@@ -23,7 +23,7 @@ The game is not done yet. Lists of TO-DO's, features to add, bugs etc. are below
 
 • New Game Mode: deathmatch--> small map(perhaps + like wall with hole in the middle etc. would be fine)
 
-• Fix dropping items(clients can't see them)
+~~• Fix dropping items(clients can't see them)~~
 
 • Rage GFX
 
