@@ -7,7 +7,6 @@ using TMPro;
 
 
 public class PlayerItems : NetworkBehaviour {
-
     
     //players can carry a max. of 2 guns(can be pistols), 1 pistol and 1 kit
     public GameObject gun1;
@@ -164,25 +163,25 @@ public class PlayerItems : NetworkBehaviour {
         switch (currentlyHeld)
         {
             case 1:
-                CmdDropGun(gun1,this.gameObject.transform.position - new Vector3(0,0,-1));
+                CmdDropGun(gun1,this.gameObject.transform.position);
                 itemSelectedIndicators[0].gameObject.SetActive(false);
                 gun1 = null;
                 break;
 
             case 2:
-                CmdDropGun(gun2, this.gameObject.transform.position- new Vector3(0, 0, -1));
+                CmdDropGun(gun2, this.gameObject.transform.position);
                 itemSelectedIndicators[1].gameObject.SetActive(false);
                 gun2 = null;
                 break;
 
             case 3:
-                CmdDropGun(pistol1, this.gameObject.transform.position - new Vector3(0, 0, -1));
+                CmdDropGun(pistol1, this.gameObject.transform.position);
                 itemSelectedIndicators[2].gameObject.SetActive(false);
                 pistol1 = null;
                 break;
 
             case 4:
-                CmdDropGun(kit1, this.gameObject.transform.position - new Vector3(0, 0, -1));
+                CmdDropGun(kit1, this.gameObject.transform.position);
                 itemSelectedIndicators[3].gameObject.SetActive(false);
                 kit1 = null;
                 break;
@@ -204,20 +203,20 @@ public class PlayerItems : NetworkBehaviour {
     /// drops desired gun to the ground on all clients
     /// </summary>
     /// <param name="gun"></param>
-    /// <param name="newPosition"></param>
+    /// <param name="newPosition">X and Y coordinates of new position, set Z to -1</param>
     [Command]
-    public void CmdDropGun(GameObject gun,Vector3 newPosition)
+    public void CmdDropGun(GameObject gun,Vector2 newPosition)
     {
         Debug.Log("CmdDropGun");
-        gun.transform.position = newPosition;
+        gun.transform.position = new Vector3(newPosition.x, newPosition.y, -1);
         RpcDroppedDown(gun,newPosition);
     }
     [ClientRpc]
-    public void RpcDroppedDown(GameObject gun,Vector3 newPosition)
+    public void RpcDroppedDown(GameObject gun,Vector2 newPosition)
     {
         Debug.Log("RpcDropped");
         gun.SetActive(true);
-        gun.transform.position = newPosition;
+        gun.transform.position = new Vector3(newPosition.x, newPosition.y, -1);
     }
 
     void ChangeItem(GameObject gun)//player picks a new gun from the floor
@@ -388,7 +387,7 @@ public class PlayerItems : NetworkBehaviour {
     /// </summary>
     /// <param name="number"></param>
     /// <returns></returns>
-    public bool IsNull(int number)//used @input manager for changin guns etc.
+    public bool IsNull(int number)//used @input manager for changing guns etc.
     {
         switch (number)
         {
