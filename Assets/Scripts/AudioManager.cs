@@ -59,7 +59,7 @@ public class AudioManager : NetworkBehaviour
         }
 
         //stop main music
-        Debug.Log("stopping main music");
+        //Debug.Log("stopping main music");
         GameObject.FindGameObjectWithTag("audioManager").GetComponent<MainAudioManager>().StopMusic();
     }
 

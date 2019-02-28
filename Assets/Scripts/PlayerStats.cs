@@ -69,6 +69,11 @@ public class PlayerStats : NetworkBehaviour {
     public float GetMaxHealth() { return maxHealth; }
     public float GetMaxArmor() { return maxArmor; }
 
+    [Command]
+    public void CmdApplyDamage(float damage, GameObject shooter, int armorPiercing)
+    {
+        RpcApplyDamage(damage, shooter, armorPiercing);
+    }
     [ClientRpc]
     public void RpcApplyDamage( float damage, GameObject shooter, int armorPiercing )
     {
@@ -113,6 +118,7 @@ public class PlayerStats : NetworkBehaviour {
             }
         }
     }
+
 
     void OnChangeHealth(float playerHealth)
     {

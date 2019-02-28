@@ -11,7 +11,7 @@ The game is not done yet. Lists of TO-DO's, features to add, bugs etc. are below
 
 • Kit Use Sounds
 
-• Multiplayer Lobby & Server List
+• Multiplayer Lobby & Server List & Syncronize safe zone
 
 • Smaller Skill Menu
 

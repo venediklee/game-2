@@ -61,11 +61,12 @@ public class Radiation : NetworkBehaviour {
         //if distance is smaller than radius of safe zone dont deal damage, else deal damage depending on the stage of safe zone
         if (player!=null && (player.transform.position - this.transform.position).magnitude > safeZone.radius)
         {
-            player.GetComponent<PlayerStats>().RpcApplyDamage(5 * stage, null, (int)player.GetComponent<PlayerStats>().GetArmor());//radiaton bypasses armor
+            player.GetComponent<PlayerStats>().CmdApplyDamage(5 * stage, null, (int)player.GetComponent<PlayerStats>().GetArmor());//radiaton bypasses armor
             //restart the radiation damage
             radDamageCoroutine = StartCoroutine(StartRadiationDamage());
         }        
     }
+    
 
     IEnumerator NextStage()//used for calling ShrinkSafeZone function every X seconds
     {
