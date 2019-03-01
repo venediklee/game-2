@@ -17,7 +17,7 @@ The game is not done yet. Lists of TO-DO's, features to add, bugs etc. are below
 
 • Fix Network Tick
 
-• Fix Leap(it might be fine after network tick)
+~~• Fix Leap(it might be fine after network tick)~~
 
 • Slow movement by pressing alt key(also disable melee attack)
 
@@ -33,7 +33,9 @@ The game is not done yet. Lists of TO-DO's, features to add, bugs etc. are below
 
 • Reset player stats, skill points etc.
 
-• RpcApplyDamage gave error on client--test it, fix it.
+~~• RpcApplyDamage gave error on client--test it, fix it.~~
+
+• Randomize starting angle of bullets a bit
 
 ------------------
 

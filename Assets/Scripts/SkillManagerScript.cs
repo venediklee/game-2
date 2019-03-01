@@ -33,9 +33,8 @@ public class SkillManagerScript : NetworkBehaviour {
 
     [SerializeField] Image[] cooldownTimers;
 
-    
-
     [SerializeField] AudioManager audioManager;
+    
 
     private void Start()
     {
@@ -62,10 +61,7 @@ public class SkillManagerScript : NetworkBehaviour {
         
         //Debug.Log(player.transform.rotation);
     }
-
-
-
-
+    
     float SkillValueToConstant(int skillValue)
     {
         return (float)((skillValue < 4) ? 10 * Mathf.Atan(skillValue - 4) / Mathf.PI + 5 : 11.5 * Mathf.Atan(skillValue - 4) / (Mathf.PI * 2) + 5);
@@ -126,11 +122,7 @@ public class SkillManagerScript : NetworkBehaviour {
         if (isLocalPlayer) return;
         player.GetComponent<SpriteRenderer>().color = someColor;
     }
-
-
-
-
-
+    
     public void SkillLeap()// player leaps but is not unseen, movement amount is constant
         //only cooldown time gets reduced
     {
@@ -154,14 +146,32 @@ public class SkillManagerScript : NetworkBehaviour {
             //get the angle vector
             Vector3 angleVector = playerCam.ScreenToWorldPoint(Input.mousePosition) - player.GetComponent<Rigidbody2D>().transform.position;
             // normalize angle vector and move the player
-            angleVector.Normalize();
-
-            player.transform.position += 7 * angleVector;
-                        
+            angleVector.z = 0;
+            if (angleVector.sqrMagnitude > 49)
+            {
+                angleVector.Normalize();
+                angleVector *= 7;
+            }
+            //player.transform.position += 7 * angleVector;
+            Debug.Log("player leaping " + angleVector.magnitude + "units");
+            CmdLeapPlayer(player, angleVector);//leap player on network to ensure clients seeing player inside a building when player leaps inside vice versa
         }
-        //player.transform.Translate(angleVector, Space.World);
     }
-
+    /// <summary>
+    /// leaps player on all clients--ensures synced leaps, so no client will see player outside a building when player leaps inside
+    /// </summary>
+    /// <param name="pl">player to leap</param>
+    /// <param name="vec">rotation and magnitude of leap</param>
+    [Command]
+    void CmdLeapPlayer(GameObject pl, Vector3 vec)
+    {
+        RpcLeapPlayer(pl, vec);
+    }
+    [ClientRpc]
+    void RpcLeapPlayer(GameObject pl, Vector3 vec)
+    {
+        pl.transform.position += vec;
+    }
 
     /// <summary>
     /// currentl this skill only activates invisibility and leap skills and makes melee damage 4x, then does a melee hit

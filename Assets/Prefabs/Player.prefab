@@ -3847,7 +3847,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1103771626502106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.056799, y: -10.938762, z: 3.2560472}
+  m_LocalPosition: {x: -10.056799, y: -10.938762, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4932953191892348}
@@ -4575,7 +4575,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &58489309035350104
 CircleCollider2D:
@@ -4585,7 +4585,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 1103771626502106}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -9576,6 +9576,9 @@ MonoBehaviour:
   - {fileID: 114700783701659350}
   - {fileID: 114545195301392258}
   audioManager: {fileID: 114137790587412556}
+  leapDistrupterLayers:
+    serializedVersion: 2
+    m_Bits: 41984
 --- !u!114 &114411319164220118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12103,7 +12106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 2
-  m_SendInterval: 0.0625
+  m_SendInterval: 0.033333335
   m_SyncRotationAxis: 3
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -12111,7 +12114,7 @@ MonoBehaviour:
   m_VelocityThreshold: 0.001
   m_SnapThreshold: 5
   m_InterpolateRotation: 0
-  m_InterpolateMovement: 1
+  m_InterpolateMovement: 0.5
 --- !u!114 &114655266374487432
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -118,7 +118,7 @@ public class PlayerStats : NetworkBehaviour {
             }
         }
     }
-
+    
 
     void OnChangeHealth(float playerHealth)
     {

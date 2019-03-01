@@ -150,11 +150,11 @@ MonoBehaviour:
     - {x: 0.43301278, y: -0.24999988}
     - {x: 0.4330127, y: 0.25000003}
     _roundness: 0.5
-    _roundnessBottomLeft: 1
-    _roundnessBottomRight: 1
+    _roundnessBottomLeft: 0.5
+    _roundnessBottomRight: 0.5
     _roundnessPerCorner: 0
-    _roundnessTopLeft: 1
-    _roundnessTopRight: 1
+    _roundnessTopLeft: 0.5
+    _roundnessTopRight: 0.5
     _shapeType: 2
     _startAngle: 0
     _triangleOffset: 0.5
