@@ -37,6 +37,10 @@ The game is not done yet. Lists of TO-DO's, features to add, bugs etc. are below
 
 ~~• Randomize starting angle of bullets a bit~~
 
+• Remove detached player components(like map canvas etc.)
+
+• Player Rage mode enterance might be client side, test it, fix it
+
 ------------------
 
 *BUG LIST*--current bugs & non implemented essential features // (later) means fix after release and/or internship application.

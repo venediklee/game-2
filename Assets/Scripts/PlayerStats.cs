@@ -14,10 +14,13 @@ public class PlayerStats : NetworkBehaviour {
     [SerializeField] RectTransform healthBar;
 
     //[HideInInspector]
-    public float killCount;
+    public int killCount;
     [SerializeField] SkillManagerScript skillManager;
 
     [SerializeField] AudioManager audioManager;
+
+    [SerializeField] RectTransform RageGFX;
+    [SerializeField] RectTransform[] RunGFXs;//8 GFX ONLY 
 
     // Use this for initialization
     void Start()
@@ -97,6 +100,57 @@ public class PlayerStats : NetworkBehaviour {
                 Array.Find(audioManager.sounds, item => item.name == "Rage").pitch = pitch;//set pitch value of rage sound
                 audioManager.CmdPlay("Rage");
 
+                //activate RAGE GFX & RUN GFXs
+                RageGFX.gameObject.SetActive(true);
+                switch (killCount)
+                {
+                    //cant utilize fall dawn since I need to set angles based on kill count
+                    case 3://spawn 3 run gfx
+                        RunGFXs[0].gameObject.SetActive(true); RunGFXs[0].rotation = Quaternion.Euler(0, 0, 0);
+                        RunGFXs[1].gameObject.SetActive(true); RunGFXs[1].rotation = Quaternion.Euler(0, 0, 120);
+                        RunGFXs[2].gameObject.SetActive(true); RunGFXs[2].rotation = Quaternion.Euler(0, 0, 240);
+                        break;
+                    case 4://spawn 4 run gfx
+                        RunGFXs[0].gameObject.SetActive(true); RunGFXs[0].rotation = Quaternion.Euler(0, 0, 0);
+                        RunGFXs[1].gameObject.SetActive(true); RunGFXs[1].rotation = Quaternion.Euler(0, 0, 90);
+                        RunGFXs[2].gameObject.SetActive(true); RunGFXs[2].rotation = Quaternion.Euler(0, 0, 180);
+                        RunGFXs[3].gameObject.SetActive(true); RunGFXs[3].rotation = Quaternion.Euler(0, 0, 270);
+                        break;
+                    case 5://spawn 5 run gfx
+                        RunGFXs[0].gameObject.SetActive(true); RunGFXs[0].rotation = Quaternion.Euler(0, 0, 0);
+                        RunGFXs[1].gameObject.SetActive(true); RunGFXs[1].rotation = Quaternion.Euler(0, 0, 72);
+                        RunGFXs[2].gameObject.SetActive(true); RunGFXs[2].rotation = Quaternion.Euler(0, 0, 144);
+                        RunGFXs[3].gameObject.SetActive(true); RunGFXs[3].rotation = Quaternion.Euler(0, 0, 216);
+                        RunGFXs[4].gameObject.SetActive(true); RunGFXs[4].rotation = Quaternion.Euler(0, 0, 288);
+                        break;
+                    case 6://spawn 6 run gfx
+                        RunGFXs[0].gameObject.SetActive(true); RunGFXs[0].rotation = Quaternion.Euler(0, 0, 0);
+                        RunGFXs[1].gameObject.SetActive(true); RunGFXs[1].rotation = Quaternion.Euler(0, 0, 60);
+                        RunGFXs[2].gameObject.SetActive(true); RunGFXs[2].rotation = Quaternion.Euler(0, 0, 120);
+                        RunGFXs[3].gameObject.SetActive(true); RunGFXs[3].rotation = Quaternion.Euler(0, 0, 180);
+                        RunGFXs[4].gameObject.SetActive(true); RunGFXs[4].rotation = Quaternion.Euler(0, 0, 240);
+                        RunGFXs[5].gameObject.SetActive(true); RunGFXs[5].rotation = Quaternion.Euler(0, 0, 300);
+                        break;
+                    case 7://spawn 7 run gfx
+                        RunGFXs[0].gameObject.SetActive(true); RunGFXs[0].rotation = Quaternion.Euler(0, 0, 0);
+                        RunGFXs[1].gameObject.SetActive(true); RunGFXs[1].rotation = Quaternion.Euler(0, 0, 51.4f); 
+                        RunGFXs[2].gameObject.SetActive(true); RunGFXs[2].rotation = Quaternion.Euler(0, 0, 102.8f); 
+                        RunGFXs[3].gameObject.SetActive(true); RunGFXs[3].rotation = Quaternion.Euler(0, 0, 154.2f); 
+                        RunGFXs[4].gameObject.SetActive(true); RunGFXs[4].rotation = Quaternion.Euler(0, 0, 205.6f); 
+                        RunGFXs[5].gameObject.SetActive(true); RunGFXs[5].rotation = Quaternion.Euler(0, 0, 257); 
+                        RunGFXs[6].gameObject.SetActive(true); RunGFXs[6].rotation = Quaternion.Euler(0, 0, 308.4f); 
+                        break;
+                    default://kill count >=8 spawn 8 run gfx
+                        RunGFXs[0].gameObject.SetActive(true); RunGFXs[0].rotation = Quaternion.Euler(0, 0, 0);
+                        RunGFXs[1].gameObject.SetActive(true); RunGFXs[1].rotation = Quaternion.Euler(0, 0, 45);
+                        RunGFXs[2].gameObject.SetActive(true); RunGFXs[2].rotation = Quaternion.Euler(0, 0, 90);
+                        RunGFXs[3].gameObject.SetActive(true); RunGFXs[3].rotation = Quaternion.Euler(0, 0, 135);
+                        RunGFXs[4].gameObject.SetActive(true); RunGFXs[4].rotation = Quaternion.Euler(0, 0, 180);
+                        RunGFXs[5].gameObject.SetActive(true); RunGFXs[5].rotation = Quaternion.Euler(0, 0, 225);
+                        RunGFXs[6].gameObject.SetActive(true); RunGFXs[6].rotation = Quaternion.Euler(0, 0, 270);
+                        RunGFXs[7].gameObject.SetActive(true); RunGFXs[7].rotation = Quaternion.Euler(0, 0, 315);
+                        break;
+                }
                 playerHealth = 10*(skillManager.quirkMoreHealth);
             }
             else//player dies
@@ -119,6 +173,17 @@ public class PlayerStats : NetworkBehaviour {
         }
     }
     
+    ///// <summary>
+    ///// activates Rage GFX in raged players position with kills number of RUN GFX
+    ///// </summary>
+    ///// <param name="kills">number of kills player has, effects number of RUN GFX spawned</param>
+    ///// <param name="ragedPlayer">player who raged</param>
+    ///// <returns></returns>
+    //IEnumerator RageGFXActivator(int kills, GameObject ragedPlayer)
+    //{
+    //    var rageGfx = Instantiate(RageGFXPrefab, ragedPlayer.transform);
+    //    rageGfx
+    //}
 
     void OnChangeHealth(float playerHealth)
     {
