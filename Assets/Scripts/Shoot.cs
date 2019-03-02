@@ -29,9 +29,11 @@ public class Shoot : NetworkBehaviour {
 
     [SerializeField] GameObject[] gunGFXs;//in order(alphabetical) ARGFX, handGFX, pistolGFX, shotgunGFX, SMGGFX, SRGFX ///holds GFX and firepoints
 
+    Quaternion bulletRotation;//gets firepoint + random value to make shooting a little bit more realistic/random
+
     private void Start()
     {
-        firePoint = this.transform;
+        firePoint = this.transform;//set to a random ass place to prevent getting errors when player starts with no guns and shoots
     }
 
     //change the gun characters in this script when currentlyHeld item changes
@@ -48,17 +50,39 @@ public class Shoot : NetworkBehaviour {
                 timeToFire = Time.time +1/(fireRate);
                 if (heldItemType=="gun_Shotgun")//this is a shotgun
                 {
-                    CmdShotgunFire();
+                    bulletRotation = Quaternion.Euler(0, 0,
+                        firePoint.rotation.eulerAngles.z + UnityEngine.Random.Range(-0.5f, 0.5f));
+                    CmdShotgunFire(bulletRotation);
                     CmdPlay_Sound("Shotgun");
                 }
                 else
                 {
-                    CmdFire();
                     //play sound
-                    if (heldItemType == "gun_AR") CmdPlay_Sound("AR");
-                    else if(heldItemType=="gun_SMG") CmdPlay_Sound("SMG");
-                    else if (heldItemType == "gun_SR") CmdPlay_Sound("SR");
-                    else if (heldItemType == "gun_Pistol") CmdPlay_Sound("Pistol");
+                    if (heldItemType == "gun_AR")
+                    {
+                        CmdPlay_Sound("AR");
+                        bulletRotation = Quaternion.Euler(0, 0,
+                        firePoint.rotation.eulerAngles.z + UnityEngine.Random.Range(-2.5f, 2.5f));
+                    }
+                    else if (heldItemType == "gun_SMG")
+                    {
+                        CmdPlay_Sound("SMG");
+                        bulletRotation = Quaternion.Euler(0, 0,
+                        firePoint.rotation.eulerAngles.z + UnityEngine.Random.Range(-5f, 5f));
+                    }
+                    else if (heldItemType == "gun_SR")
+                    {
+                        CmdPlay_Sound("SR");
+                        bulletRotation = firePoint.rotation;
+                    }
+                    else if (heldItemType == "gun_Pistol")
+                    {
+                        CmdPlay_Sound("Pistol");
+                        bulletRotation = Quaternion.Euler(0, 0,
+                        firePoint.rotation.eulerAngles.z + UnityEngine.Random.Range(-1f, 1f));
+                    }
+
+                    CmdFire(bulletRotation);
                 }
 
 
@@ -73,12 +97,28 @@ public class Shoot : NetworkBehaviour {
                 ammoInMag--;
                 timeToFire = Time.time + 1 / fireRate;
                 Debug.Log("automatic fire initiated");
-                CmdFire();
+
+                if (heldItemType == "gun_AR")
+                {
+                    CmdPlay_Sound("AR");
+                    bulletRotation = Quaternion.Euler(0, 0,
+                        firePoint.rotation.eulerAngles.z + UnityEngine.Random.Range(-2.5f, 2.5f));
+                }
+                else if (heldItemType == "gun_SMG")
+                {
+                    CmdPlay_Sound("SMG");
+                    bulletRotation = Quaternion.Euler(0, 0,
+                        firePoint.rotation.eulerAngles.z + UnityEngine.Random.Range(-5f, 5f));
+                }
+                else if (heldItemType == "gun_SR")
+                {
+                    CmdPlay_Sound("SR");
+                    bulletRotation = firePoint.rotation;
+                }
+
+                CmdFire(bulletRotation);
                 //play sound
-                if (heldItemType == "gun_AR") CmdPlay_Sound("AR");
-                else if (heldItemType == "gun_SMG") CmdPlay_Sound("SMG");
-                else if (heldItemType == "gun_SR") CmdPlay_Sound("SR");
-                else if (heldItemType == "gun_Shotgun") CmdPlay_Sound("Shotgun");
+                
             }
         }
         ammoGUI.text = "mag \n"+ammoInMag.ToString();
@@ -105,12 +145,15 @@ public class Shoot : NetworkBehaviour {
         }
     }
 
-    //Is called on the server
+    /// <summary>
+    /// spawns bullets on server(and on clients)
+    /// </summary>
+    /// <param name="rotation">rotation of the bullets</param>
     [Command]
-    void CmdFire()
+    void CmdFire(Quaternion rotation)
     {
         // Create the Bullet from the Bullet Prefab
-        var bullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        var bullet = (GameObject)Instantiate(bulletPrefab, firePoint.position,rotation);
 
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.right * bulletSpeed * 2;
@@ -123,7 +166,7 @@ public class Shoot : NetworkBehaviour {
     }
 
     [Command]
-    void CmdShotgunFire()
+    void CmdShotgunFire(Quaternion rotation)
     {
         // Create the Bullets from the Bullet Prefab
         var bullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);

@@ -35,7 +35,7 @@ The game is not done yet. Lists of TO-DO's, features to add, bugs etc. are below
 
 ~~• RpcApplyDamage gave error on client--test it, fix it.~~
 
-• Randomize starting angle of bullets a bit
+~~• Randomize starting angle of bullets a bit~~
 
 ------------------
 
