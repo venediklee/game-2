@@ -1,4 +1,4 @@
-# game-2
+# game-2 // PLAY AT https://venediklee.github.io/game-2/Builds/Test%20Builds/WebGL/index.html (needs a host from a standalone player, that you can find in https://github.com/venediklee/game-2/tree/master/Builds/Test%20Builds/Standalone/Windows )
 2D topdown game with skills and rage mechanic that awards players that have high kills by returning them to life after dying.
 
 The game is not done yet. Lists of TO-DO's, features to add, bugs etc. are below:
